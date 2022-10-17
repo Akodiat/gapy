@@ -7,6 +7,7 @@ class GeneticAlgorithm:
         self.fitnessFunc = fitnessFunc
         self.fitnessTarget = fitnessTarget
         self.allTimeBestFitness = 0
+        self.allTimeBest = population[0]
 
     def stepGeneration(self, nProcesses=1):
         if nProcesses > 1:
@@ -16,7 +17,7 @@ class GeneticAlgorithm:
             fitnesses = [self.fitnessFunc(i) for i in self.population]
         maxFitness = max(fitnesses)
         best = self.population[fitnesses.index(maxFitness)]
-        if maxFitness > self.allTimeBestFitness:
+        if maxFitness > self.allTimeBestFitness or self.allTimeBest is None:
             print("Found new all-time best")
             self.allTimeBestFitness = maxFitness
             self.allTimeBest = best
